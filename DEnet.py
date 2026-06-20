@@ -1,56 +1,3 @@
-"""
-Knowledge-Augmented Graph Attention Network (KnowledgeAugGAT)
-基于 PyTorch + PyTorch Geometric + RDKit + torchvision + numpy 的单文件复现版本。
-
-固定依赖安装命令：
-    pip install torch torchvision torch_geometric rdkit-pypi numpy
-
-运行随机样本前向传播与一次反向传播测试：
-    python knowledge_augmented_gat.py --smoke-test
-
-在 QM9 上启动最小训练示例（仅预测 HOMO/LUMO，自动保存 checkpoint 并导出 test 预测）：
-    python knowledge_augmented_gat.py --train --data-root ./data/QM9 --epochs 1 --batch-size 32
-
-加载 checkpoint 在 test 集上评估并导出：
-    python knowledge_augmented_gat.py --test --checkpoint ./checkpoints/best.pt
-
-加载 checkpoint 对单个 SMILES 做 HOMO/LUMO 推理：
-    python knowledge_augmented_gat.py --predict --smiles CCO --checkpoint ./checkpoints/best.pt
-
-架构分步设计摘要：
-1. 分支A：分子拓扑图分支
-   - 输入：QM9 图节点特征 v + 位置编码 Pm
-   - Linear 投影到 hidden_dim
-   - Multi-Head Self-Attention，以节点表征同时作为 q/k/v
-   - Add & Norm 残差相加 + LayerNorm
-   - 多层 GCNConv + ReLU
-   - 一层普通 Conv1d 重构节点/分子特征
-   - 多层残差 GATConv 块，每块 GATConv + ReLU + shortcut
-   - global_mean_pool 得到 graph_feat
-
-2. 分支B：分子2D图像分支
-   - 输入：SMILES
-   - RDKit 生成 2D 分子图像张量
-   - 多层 CNN 卷积提取空间特征
-   - AdaptiveAvgPool2d 作为图像全局均值池化
-   - 得到 img_feat
-
-3. 融合模块：GATE 自适应门控层
-   - graph_feat 与 img_feat 逐元素相加
-   - 可学习 sigmoid gate 产生融合权重
-   - gate * graph_feat + (1 - gate) * img_feat
-
-4. 预测头：FCN 多任务回归头
-   - 多层全连接隐藏层
-   - 每个 QM9 属性一个独立 Linear 输出分支
-   - 输出 [batch_size, num_tasks]
-
-5. 可解释性接口：
-   - 提取 Multi-Head Self-Attention 权重
-   - 提取 GATConv 可微分边注意力权重
-   - 提取 GATE 门控融合权重
-"""
-
 import argparse
 import copy
 import csv
@@ -1911,5 +1858,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
