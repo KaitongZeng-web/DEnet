@@ -1,0 +1,7 @@
+torch
+torchvision
+torch_geometric
+rdkit-pypi
+numpy
+tqdm
+matplotlib
