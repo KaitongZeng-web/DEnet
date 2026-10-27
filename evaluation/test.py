@@ -5,7 +5,7 @@ from torch_geometric.loader import DataLoader
 from tqdm import tqdm
 from knowledge_aug_gat import QM9_HOMO_LUMO_INDICES, MultiTaskMSELoss, load_qm9_dataset, KnowledgeAugGAT
 
-def test(args):
+def evaluate(args):
     """测试模型"""
     if not args.checkpoint or not os.path.exists(args.checkpoint):
         raise ValueError("测试模式必须指定有效检查点路径")
