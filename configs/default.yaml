@@ -1,0 +1,11 @@
+data_root: ./data/QM9
+image_size: 128
+hidden_dim: 128
+batch_size: 32
+epochs: 100
+learning_rate: 0.001
+dropout: 0.1
+num_attention_heads: 4
+num_gcn_layers: 2
+num_gat_layers: 2
+gat_heads: 4
