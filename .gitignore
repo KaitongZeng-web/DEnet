@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+.pytest_cache/
+.coverage
+htmlcov/
+data/*
+!data/.gitkeep
+checkpoints/*
+!checkpoints/.gitkeep
+*.pt
+*.pth
+*.ckpt
