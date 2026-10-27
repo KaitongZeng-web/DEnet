@@ -2,7 +2,7 @@
 import argparse
 import torch
 from engine.train import smoke_test, train
-from evaluation.test import test
+from evaluation.test import evaluate
 from inference.predict import predict
 
 def parse_args():
@@ -42,7 +42,7 @@ def main():
     elif args.train:
         train(args)
     elif args.test:
-        test(args)
+        evaluate(args)
     elif args.predict:
         predict(args)
     else:
