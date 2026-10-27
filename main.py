@@ -1,4 +1,5 @@
 """CLI entry point for training, testing and inference."""
+import argparse
 import torch
 from engine.train import smoke_test, train
 from evaluation.test import test
